@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <templates id="template" xml:space="preserve">
-    <!--
-        Keep the OpenHRMS icon launcher, but retain Odoo 19's native Dropdown
-        and menu selection. DropdownItem closes the launcher and calls
-        menuService.selectMenu(), so the current application's native sections
-        remain visible in the navbar.
-    -->
+    <!-- Full-screen app grid using Odoo 19's native menu selection. -->
     <t t-inherit="web.NavBar.AppsMenu" t-inherit-mode="extension" owl="1">
         <xpath expr="//Dropdown" position="replace">
             <Dropdown menuClass="'o_ohrms_apps_menu_fullscreen'">
