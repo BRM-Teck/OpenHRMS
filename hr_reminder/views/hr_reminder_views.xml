@@ -88,10 +88,4 @@
               web_icon="hr_reminder,static/description/icon.png"
               action="hr_reminder_action"
               sequence="8"/>
-    <record id="hr_reminder_menu_definition" model="ir.ui.menu">
-        <field name="active" eval="False"/>
-    </record>
-    <record id="hr_reminder_menu_list" model="ir.ui.menu">
-        <field name="active" eval="False"/>
-    </record>
 </odoo>
