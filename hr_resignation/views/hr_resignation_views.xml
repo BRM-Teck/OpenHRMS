@@ -80,6 +80,9 @@
                                    readonly="state == 'approved'"/>
                             <field name="reason"
                                    readonly="state == 'approved'"/>
+                            <field name="definition_note"
+                                   placeholder="HR process note for this case…"
+                                   readonly="state == 'approved'"/>
                         </group>
                     </group>
                 </sheet>
@@ -96,7 +99,10 @@
             'confirm','cancel'))]
         </field>
         <field name="help" type="html">
-            <p class="oe_view_nocontent_create">Create the First Resignation
+            <p class="o_view_nocontent_smiling_face">Create the first resignation</p>
+            <p>
+                A resignation follows Draft → Confirm → Approve or Reject.
+                Approving deactivates the employee on the last working day.
             </p>
         </field>
     </record>
@@ -107,8 +113,16 @@
         <field name="view_mode">list,form</field>
         <field name="domain">[('state', '=', 'approved')]</field>
         <field name="help" type="html">
-            <p class="oe_view_nocontent_create">Approved Resignation
-            </p>
+            <p class="o_view_nocontent_smiling_face">No approved resignation yet</p>
+        </field>
+    </record>
+    <record id="hr_resignation_rejected_action" model="ir.actions.act_window">
+        <field name="name">Rejected Resignation</field>
+        <field name="res_model">hr.resignation</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('state', '=', 'cancel')]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No rejected resignation</p>
         </field>
     </record>
     <!-- Root menu item for Resignation -->
@@ -116,6 +130,9 @@
               groups="base.group_user"
               web_icon="hr_resignation,static/description/icon.png"
               sequence="21"/>
+    <record id="hr_resignation_menu_definition" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
     <!-- Menu item for Resignation Request -->
     <menuitem id="hr_resignation_menu_request"
               parent="hr_resignation_menu_root" name="Resignation Request"
@@ -127,5 +144,11 @@
               name="Approved Resignation"
               action="hr_resignation_approved_action"
               groups="hr.group_hr_user"
-              sequence="4"/>
+              sequence="5"/>
+    <menuitem id="hr_resignation_menu_rejected"
+              parent="hr_resignation_menu_root"
+              name="Rejected Resignation"
+              action="hr_resignation_rejected_action"
+              groups="hr.group_hr_user"
+              sequence="6"/>
 </odoo>

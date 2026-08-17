@@ -57,11 +57,11 @@ class ReportOverdue(models.AbstractModel):
 
     @api.model
     def get_report_values(self, docids=None, data=None):
-        sql = """select * from hr_employee_broad_factor"""
-        self.env.cr.execute(sql)
-        lines = self.env.cr.dictfetchall()
+        lines = self.env['hr.employee.broad.factor'].search_read(
+            [], ['name', 'no_of_occurrence', 'no_of_days', 'broad_factor'],
+        )
         return {
             'doc_model': 'hr.employee.broad_factor',
             'lines': lines,
-            'Date': fields.date.today(),
+            'Date': fields.Date.today(),
         }

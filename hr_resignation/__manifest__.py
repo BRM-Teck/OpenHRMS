@@ -22,11 +22,33 @@
 #############################################################################
 {
     'name': 'Open HRMS Resignation',
-    'version': '19.0.1.1.0',
+    'version': '19.0.1.3.0',
     'category': 'Human Resources',
-    'summary': 'Manages the resignation process of the employees',
-    'description': """This module helps to create and approve/reject employee
-     resignation requests""",
+    'summary': 'Employee resignation workflow: request, approve, reject, last day',
+    'description': """
+Démissions
+==========
+
+**Définition.** Le module Resignation gère le départ d'un employé :
+demande, confirmation, approbation ou rejet par les RH, puis
+désactivation du salarié et de son utilisateur le jour de sortie.
+
+**États**
+
+* Brouillon — la demande est créée.
+* Confirmé — l'employé a confirmé son départ.
+* Approuvé — les RH ont validé ; le contrat et l'accès sont traités
+  à la date de sortie.
+* Rejeté — la demande est refusée.
+
+**Types**
+
+* Démission normale
+* Licenciement (fired by the company)
+
+Les fiches employés restent dans l'application Employés. Ce module
+n'est pas un second annuaire du personnel.
+""",
     'author': 'Cybrosys Techno solutions,Open HRMS',
     'company': 'Cybrosys Techno Solutions',
     'maintainer': 'Cybrosys Techno Solutions',

@@ -1,65 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!--    Form view of the model hr reminder-->
     <record id="hr_reminder_view_form" model="ir.ui.view">
         <field name="name">hr.reminder.view.form</field>
         <field name="model">hr.reminder</field>
         <field name="arch" type="xml">
             <form string="HR Reminder">
                 <sheet>
+                    <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
                     <div class="oe_title">
                         <h1 class="o_row">
                             <field name="name" placeholder="Reminder Title..."/>
                         </h1>
                     </div>
                     <group>
-                        <group>
+                        <group string="General">
+                            <field name="active" invisible="1"/>
+                            <field name="reminder_type"/>
+                            <field name="description" placeholder="What is this reminder for? Who should act?"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <group string="Trigger">
                             <field name="model_id"/>
+                            <field name="field_id"/>
                             <field name="search_by"/>
                             <field name="date_from" invisible="search_by not in ['set_period']" required="search_by == 'set_period'"/>
                             <field name="date_set" invisible="search_by not in ['set_date']" required="search_by == 'set_date'"/>
                             <field name="date_to" invisible="search_by not in ['set_period']" required="search_by == 'set_period'"/>
-                            <field name="company_id"/>
-                        </group>
-                        <group>
-                            <field name="field_id"/>
                             <field name="days_before" invisible="search_by != 'set_date'"/>
                             <field name="expiry_date" invisible="search_by == 'today'"/>
                         </group>
                     </group>
+                    <notebook>
+                        <page string="Notes" name="notes">
+                            <field name="notes" placeholder="Internal notes…"/>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>
     </record>
 
-    <!--    Tree view of the model HR Reminder-->
     <record id="hr_reminder_view_tree" model="ir.ui.view">
         <field name="name">hr.reminder.tree.view</field>
         <field name="model">hr.reminder</field>
         <field name="arch" type="xml">
-            <list string="Pop-Up Reminder">
+            <list string="Reminders">
                 <field name="name"/>
+                <field name="reminder_type"/>
                 <field name="model_id"/>
                 <field name="field_id"/>
-                <field name="company_id"/>
+                <field name="search_by"/>
+                <field name="company_id" groups="base.group_multi_company"/>
             </list>
         </field>
     </record>
 
-    <!--Action of the model HR Reminder-->
+    <record id="hr_reminder_view_search" model="ir.ui.view">
+        <field name="name">hr.reminder.search</field>
+        <field name="model">hr.reminder</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="model_id"/>
+                <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+                <group>
+                    <filter string="Type" name="group_type" context="{'group_by': 'reminder_type'}"/>
+                    <filter string="Model" name="group_model" context="{'group_by': 'model_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
     <record id="hr_reminder_action" model="ir.actions.act_window">
         <field name="name">Reminders</field>
         <field name="res_model">hr.reminder</field>
         <field name="view_mode">list,form</field>
         <field name="help" type="html">
-            <p class="oe_view_nocontent_create">
-                Click here to configure new periodic reminder.
+            <p class="o_view_nocontent_smiling_face">Create a reminder</p>
+            <p>
+                A reminder watches a date on an HR record (contract end, document
+                expiry…) and notifies you in the top bar before it is due.
             </p>
         </field>
     </record>
 
-    <!--Menu item for the HR Reminder action-->
     <menuitem name="Reminders" id="hr_reminder_menu"
               web_icon="hr_reminder,static/description/icon.png"
-              action="hr_reminder_action" sequence="8"/>
+              action="hr_reminder_action"
+              sequence="8"/>
+    <record id="hr_reminder_menu_definition" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
+    <record id="hr_reminder_menu_list" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
 </odoo>

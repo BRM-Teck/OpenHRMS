@@ -81,7 +81,7 @@ export class HrDashboard extends Component{
                     name: _t("My Tasks"),
                     type: 'ir.actions.act_window',
                     res_model: 'project.task',
-                    view_mode: 'tree,form,kanban',
+                    view_mode: 'list,form,kanban',
                     views: [[false, 'list'],[false, 'form'],[false, 'kanban']],
                     domain: [['user_ids','in', session.uid]],
                     target: 'current'
@@ -500,7 +500,7 @@ export class HrDashboard extends Component{
             name: _t("Leave Request"),
             type: 'ir.actions.act_window',
             res_model: 'hr.leave',
-            view_mode: 'tree,form,calendar',
+            view_mode: 'list,form,calendar',
             views: [[false, 'list'],[false, 'form']],
             domain: [['state','in',['confirm','validate1']]],
             target: 'current'
@@ -511,7 +511,7 @@ export class HrDashboard extends Component{
             name: _t("Leave Allocation Request"),
             type: 'ir.actions.act_window',
             res_model: 'hr.leave.allocation',
-            view_mode: 'tree,form,calendar',
+            view_mode: 'list,form,calendar',
             views: [[false, 'list'],[false, 'form']],
             domain: [['state','in',['confirm', 'validate1']]],
             target: 'current'
@@ -522,7 +522,7 @@ export class HrDashboard extends Component{
             name: _t("Applications"),
             type: 'ir.actions.act_window',
             res_model: 'hr.applicant',
-            view_mode: 'tree,kanban,form,pivot,graph,calendar',
+            view_mode: 'list,kanban,form,pivot,graph,calendar',
             views: [[false, 'list'],[false, 'kanban'],[false, 'form'],
                     [false, 'pivot'],[false, 'graph'],[false, 'calendar']],
             context: {},
@@ -535,7 +535,7 @@ export class HrDashboard extends Component{
             name: _t("Leaves Today"),
             type: 'ir.actions.act_window',
             res_model: 'hr.leave',
-            view_mode: 'tree,form,calendar',
+            view_mode: 'list,form,calendar',
             views: [[false, 'list'],[false, 'form']],
             domain: [['date_from','<=', date], ['date_to', '>=', date], ['state','=','validate']],
             target: 'current'
@@ -551,7 +551,7 @@ export class HrDashboard extends Component{
             name: _t("This Month Leaves"),
             type: 'ir.actions.act_window',
             res_model: 'hr.leave',
-            view_mode: 'tree,form,calendar',
+            view_mode: 'list,form,calendar',
             views: [[false, 'list'],[false, 'form']],
             domain: [['date_from','>', fday],['state','=','validate'],['date_from','<', lday]],
             target: 'current'
@@ -562,7 +562,7 @@ export class HrDashboard extends Component{
             name: _t("Employee Payslips"),
             type: 'ir.actions.act_window',
             res_model: 'hr.payslip',
-            view_mode: 'tree,form,calendar',
+            view_mode: 'list,form,calendar',
             views: [[false, 'list'],[false, 'form']],
             domain: [['employee_id','=', this.state.login_employee.id]],
             target: 'current'
@@ -582,7 +582,7 @@ export class HrDashboard extends Component{
                 name: _t("Contracts"),
                 type: 'ir.actions.act_window',
                 res_model: 'hr.version',
-                view_mode: 'tree,form,graph,pivot',
+                view_mode: 'list,form,graph,pivot',
                 views: [
                     [view_id, 'list'],
                     [false, 'graph'],
@@ -601,7 +601,7 @@ export class HrDashboard extends Component{
             name: _t("Timesheets"),
             type: 'ir.actions.act_window',
             res_model: 'account.analytic.line',
-            view_mode: 'tree,form',
+            view_mode: 'list,form',
             views: [[false, 'list'], [false, 'form']],
             context: {
                 'search_default_month': true,
@@ -619,7 +619,7 @@ export class HrDashboard extends Component{
             name: _t("Leave Request"),
             type: 'ir.actions.act_window',
             res_model: 'hr.leave',
-            view_mode: 'tree,form,calendar',
+            view_mode: 'list,form,calendar',
             views: [[false, 'list'],[false, 'form']],
             domain: [['state','in',['validate']],['employee_id','=', this.state.login_employee.id],['date_to','<=',today]],
             target: 'current',

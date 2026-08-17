@@ -1,42 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<templates id="template" xml:space="preserve">
+<templates xml:space="preserve">
     <!--
-        Keep the OpenHRMS icon launcher, but retain Odoo 19's native Dropdown
-        and menu selection. DropdownItem closes the launcher and calls
-        menuService.selectMenu(), so the current application's native sections
-        remain visible in the navbar.
+        Intentionally empty / unused.
+        Legacy Cybrosys file used to replace //Dropdown with a custom AppsMenu
+        component that breaks Odoo 19 NavBar (xpath cannot locate Dropdown).
+        The active launcher is static/src/xml/app_launcher.xml (loaded via assets).
+        Do NOT add this file back into web.assets_backend.
     -->
-    <t t-inherit="web.NavBar.AppsMenu" t-inherit-mode="extension" owl="1">
-        <xpath expr="//Dropdown" position="replace">
-            <Dropdown menuClass="'o_ohrms_apps_menu_fullscreen'">
-                <button data-hotkey="h"
-                        class="o_ohrms_apps_toggle"
-                        title="Applications">
-                    <i class="oi oi-apps"/>
-                </button>
-                <t t-set-slot="content">
-                    <div class="o_ohrms_apps_grid">
-                        <DropdownItem
-                            t-foreach="apps"
-                            t-as="app"
-                            t-key="app.id"
-                            class="'o_ohrms_app_tile'"
-                            onSelected="() => this.onNavBarDropdownItemSelection(app)"
-                            attrs="{
-                                href: getMenuItemHref(app),
-                                'data-menu-xmlid': app.xmlid,
-                                'data-section': app.id,
-                            }">
-                            <img t-if="app.webIconData"
-                                 class="o_ohrms_app_icon"
-                                 t-att-src="app.webIconData"
-                                 t-att-alt="app.name"/>
-                            <i t-else="" class="oi oi-apps o_ohrms_app_icon_fallback"/>
-                            <span class="o_ohrms_app_name" t-esc="app.name"/>
-                        </DropdownItem>
-                    </div>
-                </t>
-            </Dropdown>
-        </xpath>
-    </t>
 </templates>

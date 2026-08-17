@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="ohrms_core.SidebarMenu">
+        <t t-foreach="menus" t-as="item" t-key="item.id">
+            <t t-if="item.childrenTree and item.childrenTree.length">
+                <div class="o_tn_side_group" t-esc="item.name"/>
+                <t t-call="ohrms_core.SidebarMenu">
+                    <t t-set="menus" t-value="item.childrenTree"/>
+                </t>
+            </t>
+            <t t-else="">
+                <button type="button"
+                        class="o_tn_side_item"
+                        t-on-click="() => this.menuService.selectMenu(item)">
+                    <t t-esc="item.name"/>
+                </button>
+            </t>
+        </t>
+    </t>
+
+    <t t-name="web.NavBar" t-inherit="web.NavBar" t-inherit-mode="extension">
+        <!-- Replace 9-dot call site only. Do NOT redefine web.NavBar.AppsMenu (OWL crash). -->
+        <xpath expr="//t[@t-call='web.NavBar.AppsMenu']" position="replace">
+            <t>
+                <t t-if="this.ui.isSmall">
+                    <t t-call="web.NavBar.AppsMenu">
+                        <t t-set="apps" t-value="menuService.getApps()"/>
+                    </t>
+                </t>
+                <t t-else="">
+                    <div class="o_navbar_apps_menu">
+                        <button type="button"
+                                data-hotkey="h"
+                                class="o_ohrms_apps_toggle"
+                                t-att-class="{ 'o_ohrms_apps_toggle_active': state.showOfficialHome }"
+                                title="Menu des applications"
+                                t-on-click.stop="toggleOfficialHome">
+                            <i class="oi oi-apps"/>
+                        </button>
+                    </div>
+                </t>
+            </t>
+        </xpath>
+        <xpath expr="//DropdownItem[contains(@class, 'o_menu_brand')]" position="replace">
+            <button t-if="!this.ui.isSmall and currentApp and !state.showOfficialHome"
+                    type="button"
+                    class="o_tn_app_brand"
+                    t-att-title="state.showHomeMenu ? 'Retour à la dernière action' : 'Tableau de reprise'"
+                    t-on-click.stop="onAppBrandClick">
+                <span class="o_tn_back_chevron">&#8249;</span>
+                <img t-if="currentApp.webIconData"
+                     class="o_tn_app_logo"
+                     t-att-src="currentApp.webIconData"
+                     t-att-alt="currentApp.name"/>
+                <span class="o_tn_app_name" t-esc="currentApp.name"/>
+            </button>
+        </xpath>
+        <xpath expr="//t[@t-call='web.NavBar.SectionsMenu']" position="replace">
+            <div t-if="!this.ui.isSmall and !state.showHomeMenu and !state.showOfficialHome"
+                 class="o_menu_sections d-flex flex-grow-1 align-items-stretch"
+                 role="menu">
+                <t t-foreach="currentAppSections" t-as="section" t-key="section.id">
+                    <button type="button"
+                            class="o_nav_entry"
+                            t-att-class="{ 'o_tn_section_active': isActiveSection(section) }"
+                            t-on-click="() => this.selectAppSection(section)">
+                        <t t-esc="section.name"/>
+                    </button>
+                </t>
+            </div>
+        </xpath>
+        <xpath expr="//header" position="inside">
+            <aside t-if="hasModuleSidebar" class="o_tn_module_sidebar">
+                <div class="o_tn_side_title" t-esc="activeSection.name"/>
+                <t t-call="ohrms_core.SidebarMenu">
+                    <t t-set="menus" t-value="sidebarMenus"/>
+                </t>
+            </aside>
+            <!-- Official 9-dot home: app grid only. -->
+            <div t-if="state.showOfficialHome"
+                 class="o_tn_home_menu o_tn_home_official"
+                 t-on-click.self="closeHomeMenu">
+                <div class="o_tn_home_grid">
+                    <button type="button"
+                            class="o_tn_home_tile"
+                            t-foreach="enterpriseApps"
+                            t-as="app"
+                            t-key="app.id"
+                            t-on-click.stop="() => this.openEnterpriseApp(app)">
+                        <span class="o_tn_home_icon_wrap">
+                            <img t-if="app.webIconData"
+                                 t-att-src="app.webIconData"
+                                 t-att-alt="app.name"/>
+                            <i t-else="" class="oi oi-apps o_tn_home_icon_fallback"/>
+                        </span>
+                        <span class="o_tn_home_label" t-esc="app.name"/>
+                    </button>
+                </div>
+            </div>
+            <!-- Return dashboard: user + app grid + animated cards at the bottom. -->
+            <div t-if="state.showHomeMenu"
+                 class="o_tn_home_menu o_tn_home_return"
+                 t-on-click.self="closeHomeMenu">
+                <header class="o_tn_return_user">
+                    <div class="o_tn_return_user_avatar" t-esc="sessionUserInitial"/>
+                    <div>
+                        <p class="o_tn_return_user_name" t-esc="sessionUserName"/>
+                        <p t-if="sessionUserRole" class="o_tn_return_user_role" t-esc="sessionUserRole"/>
+                    </div>
+                </header>
+                <div class="o_tn_home_grid">
+                    <button type="button"
+                            class="o_tn_home_tile"
+                            t-foreach="enterpriseApps"
+                            t-as="app"
+                            t-key="app.id"
+                            t-on-click.stop="() => this.openEnterpriseApp(app)">
+                        <span class="o_tn_home_icon_wrap">
+                            <img t-if="app.webIconData"
+                                 t-att-src="app.webIconData"
+                                 t-att-alt="app.name"/>
+                            <i t-else="" class="oi oi-apps o_tn_home_icon_fallback"/>
+                        </span>
+                        <span class="o_tn_home_label" t-esc="app.name"/>
+                    </button>
+                </div>
+                <div class="o_tn_card_marquee" t-on-click.stop="">
+                    <div class="o_tn_card_track">
+                        <article t-foreach="returnDashboardTrack"
+                                 t-as="card"
+                                 t-key="card_index"
+                                 class="o_tn_feature_card"
+                                 t-att-class="'o_tn_card_' + card.kind"
+                                 t-on-click="(ev) => this.onReturnCard(ev, card)">
+                            <p class="o_tn_card_kicker" t-esc="card.title"/>
+                            <h4 t-esc="card.subtitle"/>
+                            <button t-if="card.kind === 'history' and card.app"
+                                    type="button"
+                                    class="o_tn_return_pin"
+                                    t-att-class="{ 'is-pinned': card.pinned }"
+                                    title="Épingler"
+                                    t-on-click.stop="(ev) => this.togglePin(ev, card.app)">
+                                ★
+                            </button>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </t>
+</templates>

@@ -22,9 +22,11 @@
 #############################################################################
 {
     'name': "Open HRMS HR Dashboard",
-    'version': '19.0.1.0.0',
-    'summary': """Comprehensive Dashboard for Managing HR Activities in Open HRMS""",
-    'description': """Provides a dashboard to view key HR information such as attendance, leaves, payroll, and more. Helps HR teams track activities in one place.""",
+    'version': '19.0.1.0.2',
+    'summary': """Official Open HRMS dashboard: attendance, leaves, payroll KPIs in one place.""",
+    'description': """Official HR dashboard of Open HRMS (app "Dashboards").
+Use this module — not the Paie dashboard — for company-wide HR KPIs.
+The 9-dot home menu lives in ohrms_core; this app is the HR analytics board.""",
     'category': 'Generic Modules/Human Resources',
     'live_test_url': 'https://youtu.be/XwGGvZbv6sc',
     'author': 'Cybrosys Techno solutions,Open HRMS',

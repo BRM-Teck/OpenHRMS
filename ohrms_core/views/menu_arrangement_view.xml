@@ -12,10 +12,11 @@
                   groups="hr_attendance.group_hr_attendance_own_reader"
                   web_icon="hr_attendance,static/description/icon.png"/>
 
-        <menuitem name="Leaves"
+        <menuitem name="Congés"
                   id="hr_holidays.menu_hr_holidays_root"
                   web_icon="hr_holidays,static/description/icon.png"
-                  groups="base.group_user"/>
+                  groups="base.group_user"
+                  sequence="8"/>
 
         <menuitem id="hr_timesheet.timesheet_menu_root"
                   name="Timesheets" sequence="6"
@@ -23,7 +24,7 @@
                   web_icon="hr_timesheet,static/description/icon_timesheet.png"/>
 
         <menuitem id="hr_payroll_community.menu_hr_payroll_community_root"
-                  name="Payroll" sequence="11"
+                  name="Paie" sequence="11"
                   web_icon="hr_payroll_community,static/description/icon.png"/>
 
         <menuitem id="hr_expense.menu_hr_expense_root"

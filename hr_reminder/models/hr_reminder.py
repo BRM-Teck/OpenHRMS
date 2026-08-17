@@ -1,41 +1,39 @@
 # -*- coding: utf-8 -*-
-#############################################################################
-#    A part of Open HRMS Project <https://www.openhrms.com>
-#
-#    Cybrosys Technologies Pvt. Ltd.
-#
-#    Copyright (C) 2025-TODAY Cybrosys Technologies(<https://www.cybrosys.com>)
-#    Author: Cybrosys Techno Solutions(<https://www.cybrosys.com>)
-#
-#    You can modify it under the terms of the GNU LESSER
-#    GENERAL PUBLIC LICENSE (LGPL v3), Version 3.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU LESSER GENERAL PUBLIC LICENSE (LGPL v3) for more details.
-#
-#    You should have received a copy of the GNU LESSER GENERAL PUBLIC LICENSE
-#    (LGPL v3) along with this program.
-#    If not, see <http://www.gnu.org/licenses/>.
-#
-#############################################################################
 from odoo import models, fields
 
 
 class HrReminder(models.Model):
-    """Model for Employees Reminder"""
+    """HR reminder: notify users before a date field on an HR record expires."""
     _name = 'hr.reminder'
     _description = "HR Reminder"
+    _order = 'name'
 
     name = fields.Char(string='Title', required=True,
-                       help="Title of the reminder")
+                       help="Title of the reminder shown in the systray.")
+    active = fields.Boolean(default=True, help="Uncheck to archive this reminder.")
+    reminder_type = fields.Selection(
+        [
+            ('document', 'Document / expiry'),
+            ('contract', 'Contract'),
+            ('leave', 'Leave / absence'),
+            ('other', 'Other'),
+        ],
+        string='Type',
+        default='other',
+        required=True,
+        help="Used to group reminders in the list and the systray.",
+    )
+    description = fields.Text(
+        string='Definition',
+        help="Explain what this reminder is for (who should act, and why).",
+    )
+    notes = fields.Html(string='Notes', help="Internal notes for HR.")
     model_id = fields.Many2one('ir.model', help="Choose the model name",
                                string="Model", required=True,
                                ondelete='cascade',
                                domain="[('model', 'like','hr')]")
     field_id = fields.Many2one('ir.model.fields', string='Field',
-                               help="Choose the field",
+                               help="Choose the date field that triggers the reminder.",
                                domain="[('model_id', '=',model_id),"
                                       "('ttype', 'in', ['datetime','date'])]"
                                , required=True, ondelete='cascade')
@@ -56,5 +54,6 @@ class HrReminder(models.Model):
     expiry_date = fields.Date(string="Reminder Expiry Date",
                               help="Expiry date to expires out the reminder")
     company_id = fields.Many2one('res.company', string='Company',
-                                 required=True, help="he company to which this reminder belongs.",
-                                 default=lambda self: self.env.user.company_id)
+                                 required=True,
+                                 help="The company to which this reminder belongs.",
+                                 default=lambda self: self.env.company)

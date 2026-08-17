@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates xml:space="preserve">
-    <t t-name="ohrms_core.OhrmsCoreSystray">
+    <t t-name="ohrms_core.OhrmsCoreSystray" owl="1">
         <div
             class="o_ohrms_core_systray"
             t-on-click="openOhrmsCoreSupport"

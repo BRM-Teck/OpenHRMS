@@ -1,81 +1,20 @@
-.o_ohrms_apps_menu_fullscreen {
-    position: fixed !important;
-    inset: var(--o-navbar-height, 46px) 0 0 0 !important;
-    transform: none !important;
-    width: 100vw !important;
-    max-width: none !important;
-    height: calc(100vh - var(--o-navbar-height, 46px)) !important;
-    max-height: none !important;
-    margin: 0 !important;
-    padding: 2rem clamp(1rem, 8vw, 10rem) !important;
-    overflow-y: auto !important;
-    border: 0 !important;
-    border-radius: 0 !important;
-    background: #fff !important;
-    box-shadow: none !important;
-}
-
-.o_ohrms_apps_grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-    gap: 1.5rem 1rem;
-    width: min(100%, 1050px);
-    margin: 0 auto;
-}
-
-.o_ohrms_app_tile {
-    display: flex !important;
-    min-width: 0;
-    padding: 0.75rem 0.5rem !important;
-    align-items: center;
-    flex-direction: column;
-    gap: 0.5rem;
-    border-radius: 12px;
-    color: #212529 !important;
-    text-align: center;
-    white-space: normal !important;
-}
-
-.o_ohrms_app_tile:hover,
-.o_ohrms_app_tile:focus {
-    background: #f3f4f6 !important;
-}
-
-.o_ohrms_app_icon,
-.o_ohrms_app_icon_fallback {
-    width: 70px;
-    height: 70px;
-    border-radius: 10px;
-    object-fit: contain;
-}
-
-.o_ohrms_app_icon_fallback {
+.o_ohrms_apps_toggle {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #714b67;
-    font-size: 3rem;
+    width: 46px;
+    height: 100%;
+    border: 0;
+    background: transparent;
+    font-size: 1.25rem;
+    cursor: pointer;
 }
 
-.o_ohrms_app_name {
-    overflow-wrap: anywhere;
-    font-weight: 600;
-    line-height: 1.2;
+.o_ohrms_apps_toggle_active {
+    background: var(--tn-hover-bg, #f3f4f6) !important;
+    color: var(--tn-accent, #017e84) !important;
 }
 
-@media (max-width: 767.98px) {
-    .o_ohrms_apps_menu_fullscreen {
-        padding: 1rem !important;
-    }
-
-    .o_ohrms_apps_grid {
-        grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
-        gap: 1rem 0.5rem;
-    }
-
-    .o_ohrms_app_icon,
-    .o_ohrms_app_icon_fallback {
-        width: 56px;
-        height: 56px;
-    }
+.o_ohrms_apps_toggle .oi-apps {
+    font-size: 1.35rem;
 }

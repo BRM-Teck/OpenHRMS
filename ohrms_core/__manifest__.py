@@ -22,7 +22,7 @@
 #############################################################################
 {
     'name': 'Open HRMS Core',
-    'version': '19.0.1.0.1',
+    'version': '19.0.1.2.4',
     'category': 'Generic Modules/Human Resources',
     'summary': """Open HRMS Odoo19, HRMS odoo19, Odoo HR, HR Dashboard, 
      Odoo19 Payroll, HR Management, Odoo Branch, Odoo Loan, Salary Advance, 
@@ -73,10 +73,13 @@
     ],
     'assets': {
         'web.assets_backend': [
+            'ohrms_core/static/src/css/enterprise_navbar.css',
+            'ohrms_core/static/src/css/enterprise_pages.css',
             'ohrms_core/static/src/css/app_launcher.css',
             'ohrms_core/static/src/css/ohrms_core_support.css',
             'ohrms_core/static/src/js/ohrms_core_systray.js',
-            'ohrms_core/static/src/xml/app_launcher.xml',
+            'ohrms_core/static/src/webclient/navbar_enterprise.js',
+            'ohrms_core/static/src/webclient/navbar_enterprise.xml',
             'ohrms_core/static/src/xml/ohrms_core_systray.xml',
         ],
     },

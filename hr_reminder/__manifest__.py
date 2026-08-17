@@ -22,12 +22,29 @@
 #############################################################################
 {
     'name': 'Open HRMS Reminders Todo',
-    'version': '19.0.1.0.0',
+    'version': '19.0.1.2.0',
     'category': 'Human Resources',
-    'summary': 'HR Reminder For OHRMS',
-    'description': """This module is a powerful and easy-to-use tool that can 
-    help you improve your HR processes and ensure that important events are 
-    never forgotten.""",
+    'summary': 'HR reminders for dates on employee, contract and document records',
+    'description': """
+Rappels RH
+==========
+
+**Définition.** Le module Rappels prévient l'équipe RH avant qu'une date
+importante n'arrive : expiration de document, fin de contrat, période
+d'essai, etc. Chaque rappel surveille un champ date d'un modèle RH et
+s'affiche dans l'icône de la barre supérieure.
+
+**Comment l'utiliser**
+
+1. Créez un rappel : choisissez le modèle (employé, contrat…), le champ
+   date, et le délai (aujourd'hui, une date, ou une période).
+2. Précisez le type et une courte description pour que l'équipe sache
+   qui doit agir.
+3. Les rappels actifs apparaissent dans le systray Reminders.
+
+Ce module ne remplace pas l'application Employés : il ne gère que les
+règles d'alerte.
+""",
     'author': 'Cybrosys Techno solutions,Open HRMS',
     'company': 'Cybrosys Techno Solutions',
     'maintainer': 'Cybrosys Techno Solutions',

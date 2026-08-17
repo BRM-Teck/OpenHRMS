@@ -66,6 +66,10 @@ class HrResignation(models.Model):
                                                'from the company.')
     reason = fields.Text(string="Reason", required=True,
                          help='Specify reason for leaving the company')
+    definition_note = fields.Text(
+        string="Process note",
+        help="Optional HR note describing this resignation case.",
+    )
     notice_period = fields.Integer(string="Notice Period",
                                 compute="_compute_notice_period",
                                 help="Notice Period of the employee in days")

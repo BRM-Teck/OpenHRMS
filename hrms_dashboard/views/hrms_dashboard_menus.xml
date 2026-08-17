@@ -7,7 +7,7 @@
     </record>
 <!--  Menu record for dashboard  -->
     <menuitem id="hrms_dashboard_menu_root"
-              name="Dashboard"
+              name="Tableaux de bord"
               action="hr_action_dashboard"
               web_icon="hrms_dashboard,static/description/icon.png"
               sequence="-100" groups="base.group_user"/>
