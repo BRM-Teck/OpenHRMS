@@ -130,9 +130,6 @@
               groups="base.group_user"
               web_icon="hr_resignation,static/description/icon.png"
               sequence="21"/>
-    <record id="hr_resignation_menu_definition" model="ir.ui.menu">
-        <field name="active" eval="False"/>
-    </record>
     <!-- Menu item for Resignation Request -->
     <menuitem id="hr_resignation_menu_request"
               parent="hr_resignation_menu_root" name="Resignation Request"
