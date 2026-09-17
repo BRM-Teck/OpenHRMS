@@ -334,8 +334,8 @@ patch(NavBar.prototype, {
             // no employee linked
         }
         try {
-            const records = await orm.read("res.users", [uid], ["groups_id"]);
-            const groupIds = records && records[0] && records[0].groups_id;
+            const records = await orm.read("res.users", [uid], ["group_ids"]);
+            const groupIds = records && records[0] && records[0].group_ids;
             if (groupIds && groupIds.length) {
                 const groups = await orm.read("res.groups", groupIds, ["full_name", "name"]);
                 const preferred = [
@@ -359,7 +359,7 @@ patch(NavBar.prototype, {
                 }
             }
         } catch {
-            // groups_id may be restricted
+            // group_ids may be restricted
         }
         if (user.isAdmin) {
             this.state.userRole = "Administrateur";
